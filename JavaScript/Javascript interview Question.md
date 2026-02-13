@@ -63,3 +63,14 @@ const c = "naveen";
   const c = "Kumar";
 }
 console.log(c); // Output: "naveen" (block scope)
+function makeMultiplier(multiplier) {
+  return function(value) {
+    return value * multiplier;
+  };
+}
+
+const double = makeMultiplier(2);
+const triple = makeMultiplier(3);
+
+console.log(double(5));  // 10
+console.log(triple(5));  // 15
