@@ -1,32 +1,65 @@
 # JavaScript Interview Questions
 
-## Basic JavaScript Interview Questions
+## 1. What is JavaScript?
 
-1. **What is JavaScript?**  
-   JavaScript is a high-level, interpreted programming language that conforms to the ECMAScript specification. It is a dynamic, weakly typed, prototype-based language that has become a standard for client-side web development.
+JavaScript is a dynamic computer programming language. It is lightweight and most commonly used as a part of web pages, whose implementations allow client-side script to interact with the user and make dynamic pages. It is an interpreted programming language with object-oriented capabilities.
 
-2. **What are the data types supported by JavaScript?**  
-   JavaScript supports the following data types:  
-    - Number  
-    - String  
-    - Boolean  
-    - Object  
-    - Undefined  
-    - Null
+### DOM (Document Object Model)
+DOM is an HTML documentation that separates HTML object element tags, defines how to keep object elements organized, and arranges the object elements in a structured hierarchy.
 
-3. **What is the difference between `==` and `===`?**  
-   The `==` operator checks for value equality, while the `===` operator checks for both value and type equality. 
+---
 
-## Intermediate JavaScript Interview Questions
+## 2. Data Types
 
-1. **Explain the concept of closures in JavaScript.**  
-   A closure is a function that retains access to its lexical scope, even when the function is executed outside that lexical scope. It allows a function to access variables from an enclosing scope, even after the outer function has finished executing.
+### Primitive Data Types
+- **Number**: An integer or a floating-point number (e.g., 3, 3.234, 3e-2)
+- **String**: Represents textual data (e.g., 'hello', "hello world!")
+- **Boolean**: Any of two values: true or false
+- **Null**: Denotes a null value (e.g., let a = null;)
+- **Undefined**: A data type whose variable is not initialized (e.g., let a;)
+- **BigInt**: An integer with arbitrary precision (e.g., 900719925124740999n, 1n)
+- **Symbol**: Data type whose instances are unique and immutable (e.g., let value = Symbol('hello');)
 
-2. **What is event delegation?**  
-   Event delegation is a technique that allows you to attach a single event listener to a parent element instead of attaching it to the individual child elements. This improves performance and allows you to manage dynamically added elements.
+### Non-Primitive Data Types
+- **Object**: Key-value pairs of collection of data (e.g., let student = {};)
+- **Array**: An ordered collection of elements
 
-3. **What are Promises and how do they work?**  
-   A Promise is an object representing the eventual completion or failure of an asynchronous operation and its resulting value. It can be in one of three states: pending, fulfilled, or rejected.
+**Reference**: [Primitive and Non-Primitive Data Types](https://www.geeksforgeeks.org/primitive-and-non-primitive-data-types-in-javascript/)
 
-## Conclusion  
-This document contains a structured list of JavaScript interview questions ranging from basic to intermediate. Candidates should study these topics to prepare for their interviews.
+---
+
+## 3. Difference between var, let, and const
+
+| Feature | var | let | const |
+|---------|-----|-----|-------|
+| Scope | Global scope | Block scope | Block scope |
+| Re-declare | Yes | No | No |
+| Re-assign | Yes | Yes | No |
+
+### Example:
+```javascript
+// VAR example
+var a = "naveen";
+var a = "updated";  // Can re-declare
+{
+  var a = "Kumar";
+}
+console.log(a); // Output: "Kumar" (global scope)
+
+// LET example
+let b = "naveen";
+// let b = "updated"; // Cannot re-declare (would throw error)
+b = "updated"; // Can re-assign
+{
+  let b = "Kumar";
+}
+console.log(b); // Output: "updated" (block scope)
+
+// CONST example
+const c = "naveen";
+// const c = "updated"; // Cannot re-declare
+// c = "updated"; // Cannot re-assign
+{
+  const c = "Kumar";
+}
+console.log(c); // Output: "naveen" (block scope)
