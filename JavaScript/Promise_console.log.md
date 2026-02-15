@@ -423,3 +423,216 @@ Answer: B) Second
 Explanation:
 `Promise.race()` resolves with the value of the first promise to settle. Since `p2` resolves after 500ms, `’Second’` is logged.
 
+🧠 10 JavaScript Promise Interview Questions – Summary
+📌 Task 1: Promise Constructor
+console.log('start');
+const promise1 = new Promise((resolve, reject) => {
+  console.log(1);
+});
+console.log('end');
+
+
+Output:
+
+start
+1
+end
+
+
+Explanation: Promise executor runs immediately as synchronous code.
+
+📌 Task 2: .then()
+console.log('start');
+const promise1 = new Promise((resolve) => {
+  console.log(1);
+  resolve(2);
+});
+promise1.then(res => console.log(res));
+console.log('end');
+
+
+Output:
+
+start
+1
+end
+2
+
+
+Explanation: .then() callback runs asynchronously after current synchronous code.
+
+📌 Task 3: resolve doesn’t stop function
+console.log('start');
+const promise1 = new Promise((resolve) => {
+  console.log(1);
+  resolve(2);
+  console.log(3);
+});
+promise1.then(res => console.log(res));
+console.log('end');
+
+
+Output:
+
+start
+1
+3
+end
+2
+
+
+Explanation: resolve() doesn’t break execution — rest of executor runs.
+
+📌 Task 4: resolve never called
+console.log('start');
+const promise1 = new Promise((resolve) => {
+  console.log(1);
+});
+promise1.then(() => console.log(2));
+console.log('end');
+
+
+Output:
+
+start
+1
+end
+
+
+Explanation: Promise stays pending, so .then() never executes.
+
+📌 Task 5: Function wrapper
+console.log('start');
+const fn = () => new Promise((resolve) => {
+  console.log(1);
+  resolve('success');
+});
+console.log('middle');
+fn().then(res => console.log(res));
+console.log('end');
+
+
+Output:
+
+start
+middle
+1
+end
+success
+
+
+Explanation: Synchronous first, then async .then().
+
+📌 Task 6: Multiple resolve Promises
+console.log('start');
+Promise.resolve(1).then(res => console.log(res));
+Promise.resolve(2).then(res => console.log(res));
+console.log('end');
+
+
+Output:
+
+start
+end
+1
+2
+
+
+Explanation: .then() callbacks are microtasks — run after sync code.
+
+📌 Task 7: setTimeout vs Promise
+console.log('start');
+setTimeout(() => console.log('setTimeout'));
+Promise.resolve().then(() => console.log('resolve'));
+console.log('end');
+
+
+Output:
+
+start
+end
+resolve
+setTimeout
+
+
+Explanation: Promise microtasks run before setTimeout macrotasks.
+
+📌 Task 8: Mixing micro & macro tasks
+const promise = new Promise((resolve) => {
+  console.log(1);
+  setTimeout(() => {
+    console.log("timerStart");
+    resolve("success");
+    console.log("timerEnd");
+  }, 0);
+  console.log(2);
+});
+promise.then(res => console.log(res));
+console.log(4);
+
+
+Output Pattern:
+
+1
+2
+4
+timerStart
+timerEnd
+success
+
+
+Explanation: Sync → macrotask (setTimeout) → resolve + microtask.
+
+📌 Task 9: Promise inside timeouts
+const timer1 = setTimeout(() => {
+  console.log('timer1');
+  Promise.resolve().then(() => console.log('promise1'));
+}, 0);
+const timer2 = setTimeout(() => console.log('timer2'), 0);
+
+
+Order of execution:
+
+First all microtasks,
+
+Then one macrotask,
+
+Then microtasks of that macrotask,
+
+Then next macrotask.
+
+(Specific output depends on timing and event loop.)
+
+📌 Task 10: Micro & Macro mixed advanced
+console.log('start');
+Promise.resolve().then(() => {
+  console.log('promise1');
+  setTimeout(() => console.log('timer2'), 0);
+});
+setTimeout(() => {
+  console.log('timer1');
+  Promise.resolve().then(() => console.log('promise2'));
+}, 0);
+console.log('end');
+
+
+Typical Output:
+
+start
+end
+promise1
+timer1
+promise2
+timer2
+
+
+Explanation: Microtasks always run before next macrotask — event loop ordering matters.
+
+🧩 Conclusion – Important Rules
+
+Synchronous code runs first
+
+Promise .then() / microtasks run before macrotasks
+
+Macrotasks (setTimeout) run after current microtasks are done
+
