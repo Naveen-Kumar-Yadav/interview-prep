@@ -155,3 +155,11 @@ Promise chain runs after call stack
 Returning normal value → auto wrapped in Promise
 
 Returning Promise → automatically flattened
+
+```css
+body {
+    background-color: black;
+    color: white;
+}
+```
+
