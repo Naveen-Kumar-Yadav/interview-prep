@@ -82,3 +82,76 @@ Goes directly to .catch()
 After catch, chain continues normally
 
 👉 Yes, "After catch" WILL run.
+
+### Promise Inside setTimeout
+
+```javascript
+setTimeout(() => {
+  console.log("Timeout 1");
+
+  Promise.resolve().then(() => {
+    console.log("Promise inside Timeout");
+  });
+}, 0);
+
+Promise.resolve().then(() => {
+  console.log("Promise 1");
+});
+
+setTimeout(() => {
+  console.log("Timeout 2");
+}, 0);
+```
+Answer
+```css
+Promise 1
+Timeout 1
+Promise inside Timeout
+Timeout 2
+```
+Execution order:
+
+Microtask → Promise 1
+
+Macrotask → Timeout 1
+
+Microtask created inside Timeout → Promise inside Timeout
+
+Next macrotask → Timeout 2
+
+👉 Microtasks always drain completely before next macrotask.
+
+### Promise.resolve in Then
+
+```javascript
+Promise.resolve()
+  .then(() => {
+    console.log("A");
+    return "B";
+  })
+  .then((val) => {
+    console.log(val);
+    return Promise.resolve("C");
+  })
+  .then((val) => {
+    console.log(val);
+  });
+
+console.log("D");
+```
+Answer
+```css
+D
+A
+B
+C
+```
+💡 Why?
+
+D is synchronous
+
+Promise chain runs after call stack
+
+Returning normal value → auto wrapped in Promise
+
+Returning Promise → automatically flattened
