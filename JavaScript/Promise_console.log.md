@@ -425,23 +425,25 @@ Explanation:
 
 🧠 10 JavaScript Promise Interview Questions – Summary
 📌 Task 1: Promise Constructor
+```javascript
 console.log('start');
 const promise1 = new Promise((resolve, reject) => {
   console.log(1);
 });
 console.log('end');
+```
 
 
 Output:
-
+```css
 start
 1
 end
-
-
+```
 Explanation: Promise executor runs immediately as synchronous code.
 
 📌 Task 2: .then()
+```javascript
 console.log('start');
 const promise1 = new Promise((resolve) => {
   console.log(1);
@@ -449,19 +451,18 @@ const promise1 = new Promise((resolve) => {
 });
 promise1.then(res => console.log(res));
 console.log('end');
-
-
+```
 Output:
-
+```css
 start
 1
 end
 2
-
-
+```
 Explanation: .then() callback runs asynchronously after current synchronous code.
 
 📌 Task 3: resolve doesn’t stop function
+```javascript
 console.log('start');
 const promise1 = new Promise((resolve) => {
   console.log(1);
@@ -470,38 +471,38 @@ const promise1 = new Promise((resolve) => {
 });
 promise1.then(res => console.log(res));
 console.log('end');
-
-
+```
 Output:
-
+```css
 start
 1
 3
 end
 2
-
+```
 
 Explanation: resolve() doesn’t break execution — rest of executor runs.
 
 📌 Task 4: resolve never called
+```javascript
 console.log('start');
 const promise1 = new Promise((resolve) => {
   console.log(1);
 });
 promise1.then(() => console.log(2));
 console.log('end');
-
+```
 
 Output:
-
+```css
 start
 1
 end
-
-
+```
 Explanation: Promise stays pending, so .then() never executes.
 
 📌 Task 5: Function wrapper
+```javascript
 console.log('start');
 const fn = () => new Promise((resolve) => {
   console.log(1);
@@ -510,54 +511,52 @@ const fn = () => new Promise((resolve) => {
 console.log('middle');
 fn().then(res => console.log(res));
 console.log('end');
-
-
+```
 Output:
-
+```css
 start
 middle
 1
 end
 success
-
-
+```
 Explanation: Synchronous first, then async .then().
 
 📌 Task 6: Multiple resolve Promises
+```javascript
 console.log('start');
 Promise.resolve(1).then(res => console.log(res));
 Promise.resolve(2).then(res => console.log(res));
 console.log('end');
-
-
+```
 Output:
-
+```css
 start
 end
 1
 2
-
-
+```
 Explanation: .then() callbacks are microtasks — run after sync code.
 
-📌 Task 7: setTimeout vs Promise
+📌 Task 7: setTimeout vs Promise'
+
+```javascript
 console.log('start');
 setTimeout(() => console.log('setTimeout'));
 Promise.resolve().then(() => console.log('resolve'));
 console.log('end');
-
-
+```
 Output:
-
+```css
 start
 end
 resolve
 setTimeout
-
-
+```
 Explanation: Promise microtasks run before setTimeout macrotasks.
 
 📌 Task 8: Mixing micro & macro tasks
+```javascript
 const promise = new Promise((resolve) => {
   console.log(1);
   setTimeout(() => {
@@ -569,27 +568,27 @@ const promise = new Promise((resolve) => {
 });
 promise.then(res => console.log(res));
 console.log(4);
-
+```
 
 Output Pattern:
-
+```css
 1
 2
 4
 timerStart
 timerEnd
 success
-
-
+```
 Explanation: Sync → macrotask (setTimeout) → resolve + microtask.
 
 📌 Task 9: Promise inside timeouts
+```javascript
 const timer1 = setTimeout(() => {
   console.log('timer1');
   Promise.resolve().then(() => console.log('promise1'));
 }, 0);
 const timer2 = setTimeout(() => console.log('timer2'), 0);
-
+```j
 
 Order of execution:
 
@@ -604,6 +603,8 @@ Then next macrotask.
 (Specific output depends on timing and event loop.)
 
 📌 Task 10: Micro & Macro mixed advanced
+
+```javascript
 console.log('start');
 Promise.resolve().then(() => {
   console.log('promise1');
@@ -614,17 +615,17 @@ setTimeout(() => {
   Promise.resolve().then(() => console.log('promise2'));
 }, 0);
 console.log('end');
-
+```
 
 Typical Output:
-
+```css
 start
 end
 promise1
 timer1
 promise2
 timer2
-
+```
 
 Explanation: Microtasks always run before next macrotask — event loop ordering matters.
 
@@ -636,3 +637,14 @@ Promise .then() / microtasks run before macrotasks
 
 Macrotasks (setTimeout) run after current microtasks are done
 
+✨ Key Takeaways (Promises in JS)
+
+A promise can only be resolved once. Further calls to resolve() are ignored.
+
+.then() returns a new promise — its return value determines the next .then().
+
+A rejected promise skips subsequent .then() and goes to .catch().
+
+async/await still yields to synchronous code — it doesn't block everything.
+
+Promise.race() resolves with the first promise to settle.
