@@ -36,6 +36,12 @@
 - Provides remediation guidance for vulnerable dependencies.
 
 ## AWS,Azure and GCP basic,Microservices
-- Tool for identifying and fixing vulnerabilities in applications.
+- Java 8/11/17/21.
+- Spring Boot, Spring MVC, Spring Data JPA, Hibernate
+- Microservices & REST APIs
+- Apache Kafka, Redis, WebSocket
+- PostgreSQL, SQL Query Optimization
+- Spring Security, JWT
+-  Docker, Git, Maven, CI/CD
 
 *Updated on 2026-02-13 17:32:57*
