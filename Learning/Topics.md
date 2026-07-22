@@ -35,4 +35,7 @@
 - Integrates with GitHub to automate security checks in CI/CD pipelines.
 - Provides remediation guidance for vulnerable dependencies.
 
+## AWS,Azure and GCP basic,Microservices
+- Tool for identifying and fixing vulnerabilities in applications.
+
 *Updated on 2026-02-13 17:32:57*
